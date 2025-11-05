@@ -66,13 +66,11 @@ class Prescription(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
 class Payment(db.Model):
-    __tablename__ = 'payment'
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    appointment_id = db.Column(db.Integer, db.ForeignKey('appointment.id'), nullable=True)
     amount = db.Column(db.Float)
     currency = db.Column(db.String(10), default='USD')
     provider = db.Column(db.String(50))  # e.g., 'stripe'
-    status = db.Column(db.String(50))  # 'pending', 'paid', 'failed'
-    metadata = db.Column(db.JSON)
+    status = db.Column(db.String(50))
+    extra_data = db.Column(db.JSON)  # renamed from metadata
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
